@@ -396,10 +396,14 @@ netWeight,
 piecesPerSheet
 });
 
-stock[materials.length-1]={
+if(!stock[name]){
+
+stock[name]={
 kg:0,
 pieces:0
 };
+
+}
 
 saveAll();
 
@@ -485,11 +489,20 @@ let inKg = 0;
 let outPieces = 0;
 let outKg = 0;
 
+// TOTAL AVAILABLE STOCK SAME MATERIAL KE LIYE
+
+if(!stock[material.name]){
+
+stock[material.name] = {
+kg:0,
+pieces:0
+};
+
+}
+
 if(type=="IN"){
 
 inKg = value;
-
-// PIECE CALCULATION USING SHEET WEIGHT AND PIECES/SHEET
 
 let pieces = 0;
 
@@ -507,9 +520,9 @@ pieces = Math.floor(inKg / material.netWeight);
 
 }
 
-stock[materialIndex].kg += inKg;
+stock[material.name].kg += inKg;
 
-stock[materialIndex].pieces += pieces;
+stock[material.name].pieces += pieces;
 
 }
 
@@ -519,14 +532,14 @@ outPieces = value;
 
 outKg = outPieces * material.netWeight;
 
-if(stock[materialIndex].pieces < outPieces){
+if(stock[material.name].pieces < outPieces){
 alert("Not Enough Stock");
 return;
 }
 
-stock[materialIndex].kg -= outKg;
+stock[material.name].kg -= outKg;
 
-stock[materialIndex].pieces -= outPieces;
+stock[material.name].pieces -= outPieces;
 
 }
 
@@ -538,8 +551,8 @@ type,
 inKg:inKg.toFixed(3),
 outPieces,
 outKg:outKg.toFixed(3),
-balancePieces:stock[materialIndex].pieces,
-balanceKg:stock[materialIndex].kg.toFixed(3)
+balancePieces:stock[material.name].pieces,
+balanceKg:stock[material.name].kg.toFixed(3)
 
 });
 
