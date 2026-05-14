@@ -489,7 +489,23 @@ if(type=="IN"){
 
 inKg = value;
 
-let pieces = Math.floor(inKg / material.netWeight);
+// PIECE CALCULATION USING SHEET WEIGHT AND PIECES/SHEET
+
+let pieces = 0;
+
+if(material.sheetWeight > 0 && material.piecesPerSheet > 0){
+
+pieces = Math.floor(
+(inKg / material.sheetWeight) * material.piecesPerSheet
+);
+
+}
+
+else{
+
+pieces = Math.floor(inKg / material.netWeight);
+
+}
 
 stock[materialIndex].kg += inKg;
 
@@ -652,7 +668,27 @@ if(e.type=="IN"){
 
 stock[materialIndex].kg += parseFloat(e.inKg);
 
-stock[materialIndex].pieces += Math.floor(parseFloat(e.inKg) / material.netWeight);
+// RECALCULATE PIECES USING SHEET DATA
+
+let recalculatedPieces = 0;
+
+if(material.sheetWeight > 0 && material.piecesPerSheet > 0){
+
+recalculatedPieces = Math.floor(
+(parseFloat(e.inKg) / material.sheetWeight) * material.piecesPerSheet
+);
+
+}
+
+else{
+
+recalculatedPieces = Math.floor(
+parseFloat(e.inKg) / material.netWeight
+);
+
+}
+
+stock[materialIndex].pieces += recalculatedPieces;
 
 }
 
