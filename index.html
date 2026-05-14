@@ -28,8 +28,10 @@ h1{
 }
 
 input,select,button{
-    padding:8px;
+    padding:10px;
     margin:5px;
+    width:100%;
+    max-width:300px;
 }
 
 button{
@@ -52,12 +54,14 @@ table{
     width:100%;
     border-collapse:collapse;
     background:white;
+    overflow-x:auto;
 }
 
 th,td{
     border:1px solid #ccc;
     padding:10px;
     text-align:center;
+    font-size:14px;
 }
 
 th{
@@ -70,6 +74,13 @@ th{
     font-weight:bold;
 }
 
+.summary{
+    background:#fff3cd;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
 </style>
 
 </head>
@@ -80,8 +91,10 @@ th{
 
 <div class="container">
 
-<label>Date :</label>
-<input type="date" id="date">
+<label>Date :</label><br>
+<input type="date" id="date"><br>
+
+<label>Select Material :</label><br>
 
 <select id="material">
 
@@ -89,23 +102,28 @@ th{
 <option value="1">HRC Sheet 6*28 WB</option>
 <option value="2">HRC Sheet 5*58/5*22 Spcr</option>
 
-</select>
+</select><br>
+
+<label>Entry Type :</label><br>
 
 <select id="type">
 
 <option value="IN">Material IN (KG)</option>
 <option value="OUT">Material OUT (Pieces)</option>
 
-</select>
+</select><br>
 
-<input type="number" id="value" placeholder="Enter Value">
+<input type="number" id="value" placeholder="Enter Value"><br>
 
 <button onclick="addEntry()">Add Entry</button>
 
-<button onclick="downloadCSV()">Download Excel CSV</button>
+<button onclick="downloadCSV()">Download CSV</button>
 
 </div>
 
+<div class="summary" id="summary"></div>
+
+<div style="overflow-x:auto;">
 
 <table>
 
@@ -121,7 +139,7 @@ th{
 <th>OUT KG</th>
 <th>Balance Pieces</th>
 <th>Balance KG</th>
-<th>Action</th>
+<th>Delete</th>
 
 </tr>
 
@@ -131,6 +149,7 @@ th{
 
 </table>
 
+</div>
 
 <script>
 
@@ -163,10 +182,9 @@ let stock = JSON.parse(localStorage.getItem("stock")) || {
 
 let entries = JSON.parse(localStorage.getItem("entries")) || [];
 
+document.getElementById("date").valueAsDate = new Date();
+
 loadTable();
-
-
-// ADD ENTRY
 
 function addEntry(){
 
@@ -216,6 +234,13 @@ outPieces = value;
 
 outKg = outPieces * material.netWeight;
 
+if(stock[materialIndex].pieces < outPieces){
+
+alert("Not Enough Stock");
+return;
+
+}
+
 stock[materialIndex].kg -= outKg;
 
 stock[materialIndex].pieces -= outPieces;
@@ -246,9 +271,6 @@ loadTable();
 document.getElementById("value").value="";
 
 }
-
-
-// LOAD TABLE
 
 function loadTable(){
 
@@ -288,10 +310,37 @@ Delete
 
 });
 
+loadSummary();
+
 }
 
+function loadSummary(){
 
-// DELETE ENTRY
+let summary = document.getElementById("summary");
+
+let html = "<h3>Current Stock Summary</h3>";
+
+materials.forEach((m,index)=>{
+
+html += `
+
+<p>
+
+<b>${m.name}</b><br>
+
+Balance Pieces : ${stock[index].pieces}<br>
+
+Balance KG : ${stock[index].kg.toFixed(3)}
+
+</p>
+
+`;
+
+});
+
+summary.innerHTML = html;
+
+}
 
 function deleteEntry(index){
 
@@ -308,9 +357,6 @@ loadTable();
 }
 
 }
-
-
-// RECALCULATE STOCK AFTER DELETE
 
 function recalculateStock(){
 
@@ -359,9 +405,6 @@ localStorage.setItem("stock",JSON.stringify(stock));
 localStorage.setItem("entries",JSON.stringify(entries));
 
 }
-
-
-// DOWNLOAD CSV
 
 function downloadCSV(){
 
