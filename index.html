@@ -377,26 +377,28 @@ let materials = JSON.parse(localStorage.getItem("materials")) || defaultMaterial
 
 let entries = JSON.parse(localStorage.getItem("entries")) || [];
 
-let stock = JSON.parse(localStorage.getItem("stock")) || {};
+let stock = {};
 
-// INITIAL STOCK
+// AUTO DATE
+
+document.getElementById("date").valueAsDate = new Date();
+
+// INITIALIZE STOCK
+
+function initializeStock(){
+
+stock = {};
 
 materials.forEach(m=>{
-
-if(!stock[m.name]){
 
 stock[m.name] = {
 kg:0,
 pieces:0
 };
 
-}
-
 });
 
-// AUTO DATE
-
-document.getElementById("date").valueAsDate = new Date();
+}
 
 // LOAD ALL
 
@@ -459,17 +461,11 @@ piecesPerSheet
 
 });
 
-stock[name] = {
-
-kg:0,
-pieces:0
-
-};
-
 saveAll();
 
 loadMaterialDropdown();
 loadMaterialTable();
+recalculateStock();
 loadSummary();
 
 alert("Material Added Successfully");
@@ -531,8 +527,6 @@ entries = entries.filter(
 e => e.material !== materialName
 );
 
-delete stock[materialName];
-
 saveAll();
 
 loadMaterialDropdown();
@@ -573,6 +567,11 @@ let inKg = 0;
 let outPieces = 0;
 let outKg = 0;
 
+// CURRENT STOCK
+
+let currentKg = stock[material.name].kg;
+let currentPieces = stock[material.name].pieces;
+
 // IN ENTRY
 
 if(type=="IN"){
@@ -594,9 +593,8 @@ material.piecesPerSheet
 
 }
 
-stock[material.name].kg += inKg;
-
-stock[material.name].pieces += pieces;
+currentKg += inKg;
+currentPieces += pieces;
 
 }
 
@@ -606,22 +604,32 @@ else{
 
 outPieces = value;
 
-outKg = outPieces * material.netWeight;
+// GROSS WEIGHT USED
+
+outKg = outPieces * material.grossWeight;
 
 // STOCK CHECK
 
-if(stock[material.name].pieces < outPieces){
+if(currentPieces < outPieces){
 
 alert("Not Enough Stock");
 return;
 
 }
 
-stock[material.name].kg -= outKg;
-
-stock[material.name].pieces -= outPieces;
+currentKg -= outKg;
+currentPieces -= outPieces;
 
 }
+
+// ROUNDING FIX
+
+currentKg = parseFloat(currentKg.toFixed(3));
+
+// UPDATE STOCK
+
+stock[material.name].kg = currentKg;
+stock[material.name].pieces = currentPieces;
 
 // SAVE ENTRY
 
@@ -633,8 +641,8 @@ type,
 inKg:inKg.toFixed(3),
 outPieces,
 outKg:outKg.toFixed(3),
-balancePieces:stock[material.name].pieces,
-balanceKg:stock[material.name].kg.toFixed(3)
+balancePieces:currentPieces,
+balanceKg:currentKg.toFixed(3)
 
 });
 
@@ -791,20 +799,7 @@ loadSummary();
 
 function recalculateStock(){
 
-stock = {};
-
-// RESET STOCK
-
-materials.forEach(m=>{
-
-stock[m.name] = {
-
-kg:0,
-pieces:0
-
-};
-
-});
+initializeStock();
 
 // REBUILD STOCK
 
@@ -855,6 +850,13 @@ parseFloat(e.outPieces);
 
 }
 
+// ROUND FIX
+
+stock[material.name].kg =
+parseFloat(
+stock[material.name].kg.toFixed(3)
+);
+
 });
 
 saveAll();
@@ -873,11 +875,6 @@ JSON.stringify(materials)
 localStorage.setItem(
 "entries",
 JSON.stringify(entries)
-);
-
-localStorage.setItem(
-"stock",
-JSON.stringify(stock)
 );
 
 }
