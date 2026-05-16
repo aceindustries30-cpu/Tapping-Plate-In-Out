@@ -1,124 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Professional Material Stock Management</title>
+
+<title>Industry Stock Management System</title>
 
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
 body{
-    font-family:Arial, sans-serif;
-    background:#f1f5f9;
-    padding:20px;
+background:#f1f5f9;
+padding:20px;
 }
 
 h1{
-    text-align:center;
-    margin-bottom:20px;
-    color:#1e293b;
+text-align:center;
+margin-bottom:20px;
+color:#0f172a;
 }
 
 .container{
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    margin-bottom:20px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+background:white;
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
 .sectionTitle{
-    font-size:20px;
-    margin-bottom:15px;
-    color:#0f172a;
+font-size:20px;
+margin-bottom:15px;
+font-weight:bold;
+color:#0f172a;
 }
 
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:12px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:12px;
 }
 
 input,select,button{
-    padding:12px;
-    border-radius:8px;
-    border:1px solid #cbd5e1;
-    font-size:14px;
+padding:12px;
+border-radius:8px;
+border:1px solid #cbd5e1;
+font-size:14px;
 }
 
 button{
-    background:#2563eb;
-    color:white;
-    border:none;
-    cursor:pointer;
-    font-weight:bold;
+background:#2563eb;
+color:white;
+font-weight:bold;
+border:none;
+cursor:pointer;
 }
 
 button:hover{
-    opacity:0.9;
+opacity:0.9;
 }
 
 .deleteBtn{
-    background:#dc2626;
-}
-
-.summaryGrid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:15px;
-}
-
-.card{
-    background:#f8fafc;
-    padding:15px;
-    border-radius:10px;
-    border-left:5px solid #2563eb;
-}
-
-.card h3{
-    margin-bottom:10px;
-    color:#0f172a;
-}
-
-.card p{
-    margin:6px 0;
+background:#dc2626;
 }
 
 .tableContainer{
-    overflow-x:auto;
+overflow-x:auto;
 }
 
-.table{
-    width:100%;
-    border-collapse:collapse;
-    background:white;
+table{
+width:100%;
+border-collapse:collapse;
 }
 
-.table th{
-    background:#2563eb;
-    color:white;
-    padding:12px;
-    border:1px solid #cbd5e1;
+th{
+background:#2563eb;
+color:white;
+padding:12px;
+border:1px solid #cbd5e1;
 }
 
-.table td{
-    padding:10px;
-    border:1px solid #cbd5e1;
-    text-align:center;
+td{
+padding:10px;
+border:1px solid #cbd5e1;
+text-align:center;
 }
 
-.stockBox{
-    background:#dcfce7;
-    font-weight:bold;
+.summaryGrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:15px;
+}
+
+.card{
+background:#f8fafc;
+padding:15px;
+border-radius:10px;
+border-left:5px solid #2563eb;
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+.stockGreen{
+color:green;
+font-weight:bold;
+}
+
+.stockBlue{
+color:#2563eb;
+font-weight:bold;
+}
+
+.lowStock{
+color:red;
+font-weight:bold;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -130,7 +139,7 @@ button:hover{
 <div class="container">
 
 <div class="sectionTitle">
-Add New Material
+Add Material
 </div>
 
 <div class="grid">
@@ -141,7 +150,7 @@ Add New Material
 
 <input type="number" step="0.001" id="grossWeight" placeholder="Gross Weight">
 
-<input type="number" step="0.001" id="netWeight" placeholder="Net Weight">
+<input type="number" step="0.001" id="netWeight" placeholder="Net Weight / Piece">
 
 <input type="number" id="piecesPerSheet" placeholder="Pieces / Sheet">
 
@@ -158,7 +167,7 @@ Add Material
 <div class="container">
 
 <div class="sectionTitle">
-Stock IN / OUT Entry
+Stock IN / OUT
 </div>
 
 <div class="grid">
@@ -168,8 +177,15 @@ Stock IN / OUT Entry
 <select id="materialSelect"></select>
 
 <select id="entryType">
-<option value="IN">Material IN (KG)</option>
-<option value="OUT">Material OUT (Pieces)</option>
+
+<option value="IN">
+Material IN (KG)
+</option>
+
+<option value="OUT">
+Material OUT (PCS)
+</option>
+
 </select>
 
 <input type="number" id="entryValue" placeholder="Enter Value">
@@ -208,17 +224,21 @@ Material Master
 
 <div class="tableContainer">
 
-<table class="table">
+<table>
 
 <thead>
+
 <tr>
+
 <th>Material</th>
 <th>Weight/Sheet</th>
 <th>Gross Weight</th>
 <th>Net Weight</th>
 <th>Pieces/Sheet</th>
 <th>Delete</th>
+
 </tr>
+
 </thead>
 
 <tbody id="materialTable"></tbody>
@@ -229,7 +249,7 @@ Material Master
 
 </div>
 
-<!-- ENTRY TABLE -->
+<!-- TRANSACTION HISTORY -->
 
 <div class="container">
 
@@ -239,10 +259,12 @@ Stock Transaction History
 
 <div class="tableContainer">
 
-<table class="table">
+<table>
 
 <thead>
+
 <tr>
+
 <th>Date</th>
 <th>Material</th>
 <th>Type</th>
@@ -252,7 +274,9 @@ Stock Transaction History
 <th>Balance PCS</th>
 <th>Balance KG</th>
 <th>Delete</th>
+
 </tr>
+
 </thead>
 
 <tbody id="entryTable"></tbody>
@@ -319,19 +343,21 @@ piecesPerSheet:0
 
 ];
 
+// STORAGE
+
 let materials = JSON.parse(localStorage.getItem("materials")) || defaultMaterials;
 
 let entries = JSON.parse(localStorage.getItem("entries")) || [];
 
 let stock = JSON.parse(localStorage.getItem("stock")) || {};
 
-// AUTO STOCK
+// INITIAL STOCK
 
-materials.forEach((m,index)=>{
+materials.forEach(m=>{
 
-if(!stock[index]){
+if(!stock[m.name]){
 
-stock[index]={
+stock[m.name] = {
 kg:0,
 pieces:0
 };
@@ -344,12 +370,15 @@ pieces:0
 
 document.getElementById("date").valueAsDate = new Date();
 
+// LOAD ALL
+
 loadMaterialDropdown();
 loadMaterialTable();
+recalculateStock();
 loadEntries();
 loadSummary();
 
-// LOAD DROPDOWN
+// MATERIAL DROPDOWN
 
 function loadMaterialDropdown(){
 
@@ -360,9 +389,11 @@ select.innerHTML = "";
 materials.forEach((m,index)=>{
 
 select.innerHTML += `
+
 <option value="${index}">
 ${m.name}
 </option>
+
 `;
 
 });
@@ -373,37 +404,39 @@ ${m.name}
 
 function addMaterial(){
 
-let name = document.getElementById("materialName").value;
+let name = document.getElementById("materialName").value.trim();
 
-let sheetWeight = parseFloat(document.getElementById("sheetWeight").value);
+let sheetWeight = parseFloat(document.getElementById("sheetWeight").value) || 0;
 
-let grossWeight = parseFloat(document.getElementById("grossWeight").value);
+let grossWeight = parseFloat(document.getElementById("grossWeight").value) || 0;
 
-let netWeight = parseFloat(document.getElementById("netWeight").value);
+let netWeight = parseFloat(document.getElementById("netWeight").value) || 0;
 
-let piecesPerSheet = parseFloat(document.getElementById("piecesPerSheet").value);
+let piecesPerSheet = parseFloat(document.getElementById("piecesPerSheet").value) || 0;
 
 if(name==""){
+
 alert("Enter Material Name");
 return;
+
 }
 
 materials.push({
+
 name,
 sheetWeight,
 grossWeight,
 netWeight,
 piecesPerSheet
+
 });
 
-if(!stock[name]){
+stock[name] = {
 
-stock[name]={
 kg:0,
 pieces:0
-};
 
-}
+};
 
 saveAll();
 
@@ -415,7 +448,7 @@ alert("Material Added Successfully");
 
 }
 
-// LOAD MATERIAL TABLE
+// MATERIAL TABLE
 
 function loadMaterialTable(){
 
@@ -428,16 +461,24 @@ materials.forEach((m,index)=>{
 table.innerHTML += `
 
 <tr>
+
 <td>${m.name}</td>
 <td>${m.sheetWeight}</td>
 <td>${m.grossWeight}</td>
 <td>${m.netWeight}</td>
 <td>${m.piecesPerSheet}</td>
+
 <td>
-<button class="deleteBtn" onclick="deleteMaterial(${index})">
+
+<button class="deleteBtn"
+onclick="deleteMaterial(${index})">
+
 Delete
+
 </button>
+
 </td>
+
 </tr>
 
 `;
@@ -454,12 +495,22 @@ let confirmDelete = confirm("Delete Material ?");
 
 if(confirmDelete){
 
+let materialName = materials[index].name;
+
 materials.splice(index,1);
+
+entries = entries.filter(
+e => e.material !== materialName
+);
+
+delete stock[materialName];
 
 saveAll();
 
 loadMaterialDropdown();
 loadMaterialTable();
+recalculateStock();
+loadEntries();
 loadSummary();
 
 }
@@ -472,15 +523,20 @@ function addEntry(){
 
 let date = document.getElementById("date").value;
 
-let materialIndex = document.getElementById("materialSelect").value;
+let materialIndex =
+document.getElementById("materialSelect").value;
 
-let type = document.getElementById("entryType").value;
+let type =
+document.getElementById("entryType").value;
 
-let value = parseFloat(document.getElementById("entryValue").value);
+let value =
+parseFloat(document.getElementById("entryValue").value);
 
 if(!value || value<=0){
+
 alert("Enter Valid Value");
 return;
+
 }
 
 let material = materials[materialIndex];
@@ -489,16 +545,7 @@ let inKg = 0;
 let outPieces = 0;
 let outKg = 0;
 
-// TOTAL AVAILABLE STOCK SAME MATERIAL KE LIYE
-
-if(!stock[material.name]){
-
-stock[material.name] = {
-kg:0,
-pieces:0
-};
-
-}
+// IN ENTRY
 
 if(type=="IN"){
 
@@ -506,17 +553,16 @@ inKg = value;
 
 let pieces = 0;
 
-if(material.sheetWeight > 0 && material.piecesPerSheet > 0){
+if(material.sheetWeight > 0 &&
+material.piecesPerSheet > 0){
 
 pieces = Math.floor(
-(inKg / material.sheetWeight) * material.piecesPerSheet
+
+(inKg / material.sheetWeight)
+*
+material.piecesPerSheet
+
 );
-
-}
-
-else{
-
-pieces = Math.floor(inKg / material.netWeight);
 
 }
 
@@ -526,15 +572,21 @@ stock[material.name].pieces += pieces;
 
 }
 
+// OUT ENTRY
+
 else{
 
 outPieces = value;
 
 outKg = outPieces * material.netWeight;
 
+// STOCK CHECK
+
 if(stock[material.name].pieces < outPieces){
+
 alert("Not Enough Stock");
 return;
+
 }
 
 stock[material.name].kg -= outKg;
@@ -542,6 +594,8 @@ stock[material.name].kg -= outKg;
 stock[material.name].pieces -= outPieces;
 
 }
+
+// SAVE ENTRY
 
 entries.push({
 
@@ -561,9 +615,11 @@ saveAll();
 loadEntries();
 loadSummary();
 
+document.getElementById("entryValue").value = "";
+
 }
 
-// LOAD ENTRIES
+// ENTRY TABLE
 
 function loadEntries(){
 
@@ -576,19 +632,33 @@ entries.forEach((e,index)=>{
 table.innerHTML += `
 
 <tr>
+
 <td>${e.date}</td>
 <td>${e.material}</td>
 <td>${e.type}</td>
 <td>${e.inKg}</td>
 <td>${e.outPieces}</td>
 <td>${e.outKg}</td>
-<td class="stockBox">${e.balancePieces}</td>
-<td class="stockBox">${e.balanceKg}</td>
-<td>
-<button class="deleteBtn" onclick="deleteEntry(${index})">
-Delete
-</button>
+
+<td class="stockBlue">
+${e.balancePieces}
 </td>
+
+<td class="stockGreen">
+${e.balanceKg}
+</td>
+
+<td>
+
+<button class="deleteBtn"
+onclick="deleteEntry(${index})">
+
+Delete
+
+</button>
+
+</td>
+
 </tr>
 
 `;
@@ -605,7 +675,12 @@ let box = document.getElementById("summaryBox");
 
 box.innerHTML = "";
 
-materials.forEach((m,index)=>{
+materials.forEach(m=>{
+
+let currentStock = stock[m.name] || {
+kg:0,
+pieces:0
+};
 
 box.innerHTML += `
 
@@ -613,19 +688,49 @@ box.innerHTML += `
 
 <h3>${m.name}</h3>
 
-<p><b>Weight/Sheet:</b> ${m.sheetWeight}</p>
+<p>
+<b>Weight/Sheet:</b>
+${m.sheetWeight}
+</p>
 
-<p><b>Gross Weight:</b> ${m.grossWeight}</p>
+<p>
+<b>Gross Weight:</b>
+${m.grossWeight}
+</p>
 
-<p><b>Net Weight:</b> ${m.netWeight}</p>
+<p>
+<b>Net Weight:</b>
+${m.netWeight}
+</p>
 
-<p><b>Pieces/Sheet:</b> ${m.piecesPerSheet}</p>
+<p>
+<b>Pieces/Sheet:</b>
+${m.piecesPerSheet}
+</p>
 
-<hr><br>
+<hr style="margin:10px 0;">
 
-<p><b>Balance Pieces:</b> ${stock[index]?.pieces || 0}</p>
+<p class="stockGreen">
 
-<p><b>Balance KG:</b> ${(stock[index]?.kg || 0).toFixed(3)}</p>
+Total Stock KG:
+${currentStock.kg.toFixed(3)}
+
+</p>
+
+<p class="stockBlue">
+
+Total Stock PCS:
+${currentStock.pieces}
+
+</p>
+
+${
+currentStock.pieces < 50
+?
+'<p class="lowStock">Low Stock Alert</p>'
+:
+''
+}
 
 </div>
 
@@ -654,62 +759,71 @@ loadSummary();
 
 }
 
-// RECALCULATE
+// RECALCULATE STOCK
 
 function recalculateStock(){
 
 stock = {};
 
-materials.forEach((m,index)=>{
+// RESET STOCK
 
-stock[index]={
+materials.forEach(m=>{
+
+stock[m.name] = {
+
 kg:0,
 pieces:0
+
 };
 
 });
 
+// REBUILD STOCK
+
 entries.forEach(e=>{
 
-let materialIndex = materials.findIndex(m => m.name === e.material);
+let material =
+materials.find(m => m.name === e.material);
 
-if(materialIndex==-1)return;
+if(!material) return;
 
-let material = materials[materialIndex];
+// IN
 
 if(e.type=="IN"){
 
-stock[materialIndex].kg += parseFloat(e.inKg);
+stock[material.name].kg +=
+parseFloat(e.inKg);
 
-// RECALCULATE PIECES USING SHEET DATA
+let pieces = 0;
 
-let recalculatedPieces = 0;
+if(material.sheetWeight > 0 &&
+material.piecesPerSheet > 0){
 
-if(material.sheetWeight > 0 && material.piecesPerSheet > 0){
+pieces = Math.floor(
 
-recalculatedPieces = Math.floor(
-(parseFloat(e.inKg) / material.sheetWeight) * material.piecesPerSheet
+(parseFloat(e.inKg)
+/ material.sheetWeight)
+
+*
+material.piecesPerSheet
+
 );
 
 }
 
-else{
-
-recalculatedPieces = Math.floor(
-parseFloat(e.inKg) / material.netWeight
-);
+stock[material.name].pieces += pieces;
 
 }
 
-stock[materialIndex].pieces += recalculatedPieces;
-
-}
+// OUT
 
 else{
 
-stock[materialIndex].kg -= parseFloat(e.outKg);
+stock[material.name].kg -=
+parseFloat(e.outKg);
 
-stock[materialIndex].pieces -= parseFloat(e.outPieces);
+stock[material.name].pieces -=
+parseFloat(e.outPieces);
 
 }
 
@@ -723,21 +837,31 @@ saveAll();
 
 function saveAll(){
 
-localStorage.setItem("materials",JSON.stringify(materials));
+localStorage.setItem(
+"materials",
+JSON.stringify(materials)
+);
 
-localStorage.setItem("entries",JSON.stringify(entries));
+localStorage.setItem(
+"entries",
+JSON.stringify(entries)
+);
 
-localStorage.setItem("stock",JSON.stringify(stock));
+localStorage.setItem(
+"stock",
+JSON.stringify(stock)
+);
 
 }
 
-// DOWNLOAD CSV
+// CSV DOWNLOAD
 
 function downloadCSV(){
 
 let csv = [];
 
 csv.push([
+
 "Date",
 "Material",
 "Type",
@@ -746,6 +870,7 @@ csv.push([
 "OUT KG",
 "Balance PCS",
 "Balance KG"
+
 ]);
 
 entries.forEach(e=>{
@@ -765,7 +890,8 @@ e.balanceKg
 
 });
 
-let csvContent = "data:text/csv;charset=utf-8,";
+let csvContent =
+"data:text/csv;charset=utf-8,";
 
 csv.forEach(row=>{
 
@@ -779,9 +905,16 @@ let link = document.createElement("a");
 
 link.setAttribute("href",encodedUri);
 
-link.setAttribute("download","material_stock.csv");
+link.setAttribute(
+"download",
+"material_stock.csv"
+);
+
+document.body.appendChild(link);
 
 link.click();
+
+document.body.removeChild(link);
 
 }
 
