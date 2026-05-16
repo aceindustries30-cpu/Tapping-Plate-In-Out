@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aceindustires30-cpu.github.io/Tapping-Plate-in/out/sitemap.xml
