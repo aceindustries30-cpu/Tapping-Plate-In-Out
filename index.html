@@ -373,15 +373,20 @@ piecesPerSheet:0
 
 // STORAGE
 
-let materials = JSON.parse(localStorage.getItem("materials")) || defaultMaterials;
+let materials =
+JSON.parse(localStorage.getItem("materials"))
+|| defaultMaterials;
 
-let entries = JSON.parse(localStorage.getItem("entries")) || [];
+let entries =
+JSON.parse(localStorage.getItem("entries"))
+|| [];
 
 let stock = {};
 
 // AUTO DATE
 
-document.getElementById("date").valueAsDate = new Date();
+document.getElementById("date").valueAsDate =
+new Date();
 
 // INITIALIZE STOCK
 
@@ -392,8 +397,10 @@ stock = {};
 materials.forEach(m=>{
 
 stock[m.name] = {
+
 kg:0,
 pieces:0
+
 };
 
 });
@@ -412,7 +419,8 @@ loadSummary();
 
 function loadMaterialDropdown(){
 
-let select = document.getElementById("materialSelect");
+let select =
+document.getElementById("materialSelect");
 
 select.innerHTML = "";
 
@@ -434,15 +442,29 @@ ${m.name}
 
 function addMaterial(){
 
-let name = document.getElementById("materialName").value.trim();
+let name =
+document.getElementById("materialName")
+.value.trim();
 
-let sheetWeight = parseFloat(document.getElementById("sheetWeight").value) || 0;
+let sheetWeight =
+parseFloat(
+document.getElementById("sheetWeight").value
+) || 0;
 
-let grossWeight = parseFloat(document.getElementById("grossWeight").value) || 0;
+let grossWeight =
+parseFloat(
+document.getElementById("grossWeight").value
+) || 0;
 
-let netWeight = parseFloat(document.getElementById("netWeight").value) || 0;
+let netWeight =
+parseFloat(
+document.getElementById("netWeight").value
+) || 0;
 
-let piecesPerSheet = parseFloat(document.getElementById("piecesPerSheet").value) || 0;
+let piecesPerSheet =
+parseFloat(
+document.getElementById("piecesPerSheet").value
+) || 0;
 
 if(name==""){
 
@@ -476,7 +498,8 @@ alert("Material Added Successfully");
 
 function loadMaterialTable(){
 
-let table = document.getElementById("materialTable");
+let table =
+document.getElementById("materialTable");
 
 table.innerHTML = "";
 
@@ -515,11 +538,13 @@ Delete
 
 function deleteMaterial(index){
 
-let confirmDelete = confirm("Delete Material ?");
+let confirmDelete =
+confirm("Delete Material ?");
 
 if(confirmDelete){
 
-let materialName = materials[index].name;
+let materialName =
+materials[index].name;
 
 materials.splice(index,1);
 
@@ -543,7 +568,8 @@ loadSummary();
 
 function addEntry(){
 
-let date = document.getElementById("date").value;
+let date =
+document.getElementById("date").value;
 
 let materialIndex =
 document.getElementById("materialSelect").value;
@@ -552,7 +578,9 @@ let type =
 document.getElementById("entryType").value;
 
 let value =
-parseFloat(document.getElementById("entryValue").value);
+parseFloat(
+document.getElementById("entryValue").value
+);
 
 if(!value || value<=0){
 
@@ -567,10 +595,11 @@ let inKg = 0;
 let outPieces = 0;
 let outKg = 0;
 
-// CURRENT STOCK
+let currentKg =
+stock[material.name].kg;
 
-let currentKg = stock[material.name].kg;
-let currentPieces = stock[material.name].pieces;
+let currentPieces =
+stock[material.name].pieces;
 
 // IN ENTRY
 
@@ -580,8 +609,10 @@ inKg = value;
 
 let pieces = 0;
 
-if(material.sheetWeight > 0 &&
-material.piecesPerSheet > 0){
+if(
+material.sheetWeight > 0 &&
+material.piecesPerSheet > 0
+){
 
 pieces = Math.floor(
 
@@ -594,6 +625,7 @@ material.piecesPerSheet
 }
 
 currentKg += inKg;
+
 currentPieces += pieces;
 
 }
@@ -604,9 +636,25 @@ else{
 
 outPieces = value;
 
-// GROSS WEIGHT USED
+// PERFECT KG CALCULATION
 
-outKg = outPieces * material.grossWeight;
+if(
+material.sheetWeight > 0 &&
+material.piecesPerSheet > 0
+){
+
+outKg =
+outPieces *
+(
+material.sheetWeight /
+material.piecesPerSheet
+);
+
+}else{
+
+outKg = 0;
+
+}
 
 // STOCK CHECK
 
@@ -618,17 +666,20 @@ return;
 }
 
 currentKg -= outKg;
+
 currentPieces -= outPieces;
 
 }
 
 // ROUNDING FIX
 
-currentKg = parseFloat(currentKg.toFixed(3));
+currentKg =
+parseFloat(currentKg.toFixed(3));
 
 // UPDATE STOCK
 
 stock[material.name].kg = currentKg;
+
 stock[material.name].pieces = currentPieces;
 
 // SAVE ENTRY
@@ -659,7 +710,8 @@ document.getElementById("entryValue").value = "";
 
 function loadEntries(){
 
-let table = document.getElementById("entryTable");
+let table =
+document.getElementById("entryTable");
 
 table.innerHTML = "";
 
@@ -707,13 +759,15 @@ Delete
 
 function loadSummary(){
 
-let box = document.getElementById("summaryBox");
+let box =
+document.getElementById("summaryBox");
 
 box.innerHTML = "";
 
 materials.forEach(m=>{
 
-let currentStock = stock[m.name] || {
+let currentStock =
+stock[m.name] || {
 kg:0,
 pieces:0
 };
@@ -780,7 +834,8 @@ currentStock.pieces < 50
 
 function deleteEntry(index){
 
-let confirmDelete = confirm("Delete Entry ?");
+let confirmDelete =
+confirm("Delete Entry ?");
 
 if(confirmDelete){
 
@@ -801,12 +856,12 @@ function recalculateStock(){
 
 initializeStock();
 
-// REBUILD STOCK
-
 entries.forEach(e=>{
 
 let material =
-materials.find(m => m.name === e.material);
+materials.find(
+m => m.name === e.material
+);
 
 if(!material) return;
 
@@ -819,13 +874,18 @@ parseFloat(e.inKg);
 
 let pieces = 0;
 
-if(material.sheetWeight > 0 &&
-material.piecesPerSheet > 0){
+if(
+material.sheetWeight > 0 &&
+material.piecesPerSheet > 0
+){
 
 pieces = Math.floor(
 
-(parseFloat(e.inKg)
-/ material.sheetWeight)
+(
+parseFloat(e.inKg)
+/
+material.sheetWeight
+)
 
 *
 material.piecesPerSheet
@@ -926,7 +986,8 @@ csvContent += row.join(",") + "\n";
 
 let encodedUri = encodeURI(csvContent);
 
-let link = document.createElement("a");
+let link =
+document.createElement("a");
 
 link.setAttribute("href",encodedUri);
 
