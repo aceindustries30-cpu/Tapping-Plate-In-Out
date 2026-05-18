@@ -4,7 +4,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Tapping Plate In Out Inventory Management System</title>
@@ -18,8 +17,6 @@ content="Tapping Plate, Inventory Management, Stock Management, Production Track
 <meta name="author" content="Ace Industries">
 
 <meta name="robots" content="index, follow">
-
-<meta name="googlebot" content="index, follow">
 
 <meta property="og:title"
 content="Tapping Plate Inventory System">
@@ -100,6 +97,14 @@ opacity:0.9;
 background:#dc2626;
 }
 
+.editBtn{
+background:#f59e0b;
+}
+
+.exportBtn{
+background:#059669;
+}
+
 .tableContainer{
 overflow-x:auto;
 }
@@ -152,6 +157,31 @@ font-weight:bold;
 .lowStock{
 color:red;
 font-weight:bold;
+margin-top:10px;
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+margin-bottom:20px;
+}
+
+.dashboardCard{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.dashboardCard h2{
+font-size:28px;
+margin-top:10px;
+color:#2563eb;
+}
+
+hr{
+margin:10px 0;
 }
 
 </style>
@@ -161,6 +191,32 @@ font-weight:bold;
 <body>
 
 <h1>Professional Material Stock Management</h1>
+
+<!-- DASHBOARD -->
+
+<div class="dashboard">
+
+<div class="dashboardCard">
+<p>Total Materials</p>
+<h2 id="totalMaterials">0</h2>
+</div>
+
+<div class="dashboardCard">
+<p>Total Stock KG</p>
+<h2 id="totalKg">0</h2>
+</div>
+
+<div class="dashboardCard">
+<p>Total Stock PCS</p>
+<h2 id="totalPcs">0</h2>
+</div>
+
+<div class="dashboardCard">
+<p>Low Stock Items</p>
+<h2 id="lowStockCount">0</h2>
+</div>
+
+</div>
 
 <!-- ADD MATERIAL -->
 
@@ -224,6 +280,36 @@ Save Entry
 
 <button onclick="downloadCSV()">
 Download CSV
+</button>
+
+<button class="exportBtn" onclick="backupData()">
+Backup JSON
+</button>
+
+</div>
+
+</div>
+
+<!-- DATE FILTER -->
+
+<div class="container">
+
+<div class="sectionTitle">
+Date Filter
+</div>
+
+<div class="grid">
+
+<input type="date" id="fromDate">
+
+<input type="date" id="toDate">
+
+<button onclick="filterEntries()">
+Filter
+</button>
+
+<button onclick="loadEntries()">
+Reset
 </button>
 
 </div>
@@ -343,30 +429,6 @@ sheetWeight:2.775,
 grossWeight:0.055,
 netWeight:0.05,
 piecesPerSheet:48
-},
-
-{
-name:"HRC Sheet 6*35 Mtg",
-sheetWeight:0,
-grossWeight:0,
-netWeight:0,
-piecesPerSheet:0
-},
-
-{
-name:"HRC Sheet 6*25 Anchg",
-sheetWeight:0,
-grossWeight:0,
-netWeight:0,
-piecesPerSheet:0
-},
-
-{
-name:"HRC Sheet 6*32 ctr floor",
-sheetWeight:0,
-grossWeight:0,
-netWeight:0,
-piecesPerSheet:0
 }
 
 ];
@@ -407,13 +469,14 @@ pieces:0
 
 }
 
-// LOAD ALL
+// LOAD
 
 loadMaterialDropdown();
 loadMaterialTable();
 recalculateStock();
 loadEntries();
 loadSummary();
+loadDashboard();
 
 // MATERIAL DROPDOWN
 
@@ -473,6 +536,19 @@ return;
 
 }
 
+// DUPLICATE CHECK
+
+let exists = materials.some(
+m => m.name.toLowerCase() === name.toLowerCase()
+);
+
+if(exists){
+
+alert("Material Already Exists");
+return;
+
+}
+
 materials.push({
 
 name,
@@ -489,6 +565,7 @@ loadMaterialDropdown();
 loadMaterialTable();
 recalculateStock();
 loadSummary();
+loadDashboard();
 
 alert("Material Added Successfully");
 
@@ -559,6 +636,7 @@ loadMaterialTable();
 recalculateStock();
 loadEntries();
 loadSummary();
+loadDashboard();
 
 }
 
@@ -625,7 +703,6 @@ material.piecesPerSheet
 }
 
 currentKg += inKg;
-
 currentPieces += pieces;
 
 }
@@ -635,8 +712,6 @@ currentPieces += pieces;
 else{
 
 outPieces = value;
-
-// PERFECT KG CALCULATION
 
 if(
 material.sheetWeight > 0 &&
@@ -650,13 +725,7 @@ material.sheetWeight /
 material.piecesPerSheet
 );
 
-}else{
-
-outKg = 0;
-
 }
-
-// STOCK CHECK
 
 if(currentPieces < outPieces){
 
@@ -666,23 +735,23 @@ return;
 }
 
 currentKg -= outKg;
-
 currentPieces -= outPieces;
 
 }
 
-// ROUNDING FIX
+// NEGATIVE FIX
+
+if(currentKg < 0){
+
+currentKg = 0;
+
+}
 
 currentKg =
 parseFloat(currentKg.toFixed(3));
 
-// UPDATE STOCK
-
 stock[material.name].kg = currentKg;
-
 stock[material.name].pieces = currentPieces;
-
-// SAVE ENTRY
 
 entries.push({
 
@@ -701,21 +770,31 @@ saveAll();
 
 loadEntries();
 loadSummary();
+loadDashboard();
 
 document.getElementById("entryValue").value = "";
 
 }
 
-// ENTRY TABLE
+// LOAD ENTRIES
 
-function loadEntries(){
+function loadEntries(filteredEntries = null){
 
 let table =
 document.getElementById("entryTable");
 
 table.innerHTML = "";
 
-entries.forEach((e,index)=>{
+let displayEntries =
+filteredEntries || entries;
+
+// SORT LATEST FIRST
+
+displayEntries.sort((a,b)=>
+new Date(b.date)-new Date(a.date)
+);
+
+displayEntries.forEach((e,index)=>{
 
 table.innerHTML += `
 
@@ -752,6 +831,34 @@ Delete
 `;
 
 });
+
+}
+
+// FILTER ENTRIES
+
+function filterEntries(){
+
+let from =
+document.getElementById("fromDate").value;
+
+let to =
+document.getElementById("toDate").value;
+
+if(!from || !to){
+
+alert("Select Date Range");
+return;
+
+}
+
+let filtered = entries.filter(e=>{
+
+return e.date >= from &&
+e.date <= to;
+
+});
+
+loadEntries(filtered);
 
 }
 
@@ -798,7 +905,7 @@ ${m.netWeight}
 ${m.piecesPerSheet}
 </p>
 
-<hr style="margin:10px 0;">
+<hr>
 
 <p class="stockGreen">
 
@@ -830,6 +937,43 @@ currentStock.pieces < 50
 
 }
 
+// DASHBOARD
+
+function loadDashboard(){
+
+document.getElementById("totalMaterials")
+.innerText = materials.length;
+
+let totalKg = 0;
+let totalPcs = 0;
+let lowStock = 0;
+
+materials.forEach(m=>{
+
+let s = stock[m.name];
+
+totalKg += s.kg;
+totalPcs += s.pieces;
+
+if(s.pieces < 50){
+
+lowStock++;
+
+}
+
+});
+
+document.getElementById("totalKg")
+.innerText = totalKg.toFixed(3);
+
+document.getElementById("totalPcs")
+.innerText = totalPcs;
+
+document.getElementById("lowStockCount")
+.innerText = lowStock;
+
+}
+
 // DELETE ENTRY
 
 function deleteEntry(index){
@@ -845,6 +989,7 @@ recalculateStock();
 
 loadEntries();
 loadSummary();
+loadDashboard();
 
 }
 
@@ -864,8 +1009,6 @@ m => m.name === e.material
 );
 
 if(!material) return;
-
-// IN
 
 if(e.type=="IN"){
 
@@ -898,8 +1041,6 @@ stock[material.name].pieces += pieces;
 
 }
 
-// OUT
-
 else{
 
 stock[material.name].kg -=
@@ -910,7 +1051,11 @@ parseFloat(e.outPieces);
 
 }
 
-// ROUND FIX
+if(stock[material.name].kg < 0){
+
+stock[material.name].kg = 0;
+
+}
 
 stock[material.name].kg =
 parseFloat(
@@ -923,7 +1068,7 @@ saveAll();
 
 }
 
-// SAVE ALL
+// SAVE
 
 function saveAll(){
 
@@ -1001,6 +1146,42 @@ document.body.appendChild(link);
 link.click();
 
 document.body.removeChild(link);
+
+}
+
+// BACKUP JSON
+
+function backupData(){
+
+let data = {
+
+materials,
+entries
+
+};
+
+let json =
+JSON.stringify(data,null,2);
+
+let blob =
+new Blob([json],{
+type:"application/json"
+});
+
+let url =
+URL.createObjectURL(blob);
+
+let a =
+document.createElement("a");
+
+a.href = url;
+
+a.download =
+"inventory_backup.json";
+
+a.click();
+
+URL.revokeObjectURL(url);
 
 }
 
