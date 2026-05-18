@@ -6,34 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tapping Plate ERP | RM FG Scrap Production Management</title>
-
-<meta name="description"
-content="Professional ERP style Raw Material, Finished Goods, Production and Scrap Management System for Tapping Plate Manufacturing.">
-
-<meta name="keywords"
-content="ERP Inventory System, Production ERP, RM FG Stock, Scrap Management, Tapping Plate ERP, Manufacturing ERP">
-
-<meta name="author"
-content="Ace Industries">
-
-<meta name="robots"
-content="index, follow">
-
-<meta property="og:title"
-content="Manufacturing ERP Inventory System">
-
-<meta property="og:description"
-content="Professional ERP Style Production Stock Management System">
-
-<meta property="og:type"
-content="website">
-
-<meta property="og:url"
-content="https://aceindustries30-cpu.github.io/Tapping-Plate-In-Out/">
-
-<link rel="canonical"
-href="https://aceindustries30-cpu.github.io/Tapping-Plate-In-Out/">
+<title>Manufacturing ERP System</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -53,8 +26,7 @@ color:#0f172a;
 }
 
 h1{
-font-size:34px;
-font-weight:700;
+font-size:32px;
 margin-bottom:10px;
 }
 
@@ -78,47 +50,33 @@ font-weight:600;
 
 .dashboard{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:18px;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
 margin-bottom:25px;
 }
 
 .dashboardCard{
 background:white;
-padding:22px;
-border-radius:16px;
+padding:20px;
+border-radius:14px;
 box-shadow:0 4px 15px rgba(0,0,0,0.08);
-position:relative;
-overflow:hidden;
-}
-
-.dashboardCard::after{
-content:'';
-position:absolute;
-right:-20px;
-top:-20px;
-width:80px;
-height:80px;
-background:rgba(37,99,235,0.1);
-border-radius:50%;
 }
 
 .dashboardCard p{
-font-size:14px;
 color:#64748b;
 margin-bottom:10px;
 }
 
 .dashboardCard h2{
-font-size:30px;
+font-size:28px;
 color:#2563eb;
 }
 
 .container{
 background:white;
-padding:22px;
-border-radius:16px;
-margin-bottom:22px;
+padding:20px;
+border-radius:14px;
+margin-bottom:20px;
 box-shadow:0 4px 15px rgba(0,0,0,0.08);
 }
 
@@ -126,9 +84,6 @@ box-shadow:0 4px 15px rgba(0,0,0,0.08);
 font-size:20px;
 font-weight:700;
 margin-bottom:18px;
-display:flex;
-align-items:center;
-gap:10px;
 }
 
 .grid{
@@ -144,25 +99,14 @@ padding:13px;
 border-radius:10px;
 border:1px solid #cbd5e1;
 font-size:14px;
-outline:none;
-}
-
-input:focus,
-select:focus{
-border-color:#2563eb;
 }
 
 button{
 background:#2563eb;
 color:white;
 font-weight:600;
-cursor:pointer;
 border:none;
-transition:0.3s;
-}
-
-button:hover{
-transform:translateY(-2px);
+cursor:pointer;
 }
 
 .greenBtn{
@@ -173,37 +117,9 @@ background:#059669;
 background:#dc2626;
 }
 
-.orangeBtn{
-background:#ea580c;
-}
-
-.tableContainer{
-overflow:auto;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-min-width:1100px;
-}
-
-th{
-background:#2563eb;
-color:white;
-padding:14px;
-font-size:14px;
-}
-
-td{
-padding:12px;
-border-bottom:1px solid #e2e8f0;
-text-align:center;
-font-size:14px;
-}
-
 .summaryGrid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:18px;
 }
 
@@ -215,7 +131,7 @@ border-left:5px solid #2563eb;
 }
 
 .card h3{
-margin-bottom:12px;
+margin-bottom:10px;
 }
 
 .stockGreen{
@@ -233,19 +149,31 @@ color:#dc2626;
 font-weight:700;
 }
 
-.lowStock{
-background:#fee2e2;
-color:#dc2626;
-padding:8px;
-border-radius:8px;
-margin-top:12px;
-font-size:13px;
-font-weight:600;
+.tableContainer{
+overflow:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:1100px;
+}
+
+th{
+background:#2563eb;
+color:white;
+padding:12px;
+}
+
+td{
+padding:12px;
+border-bottom:1px solid #e2e8f0;
+text-align:center;
 }
 
 .badge{
 padding:5px 10px;
-border-radius:30px;
+border-radius:20px;
 font-size:12px;
 font-weight:600;
 color:white;
@@ -263,24 +191,6 @@ background:#2563eb;
 background:#dc2626;
 }
 
-hr{
-margin:12px 0;
-border:none;
-border-top:1px solid #e2e8f0;
-}
-
-@media(max-width:768px){
-
-body{
-padding:12px;
-}
-
-h1{
-font-size:24px;
-}
-
-}
-
 </style>
 
 </head>
@@ -290,10 +200,8 @@ font-size:24px;
 <div class="topBar">
 
 <div>
-
 <h1>Manufacturing ERP System</h1>
 <p>RM • FG • Scrap • Production Tracking</p>
-
 </div>
 
 <div class="erpBadge">
@@ -301,8 +209,6 @@ ACE INDUSTRIES ERP
 </div>
 
 </div>
-
-<!-- DASHBOARD -->
 
 <div class="dashboard">
 
@@ -331,14 +237,9 @@ ACE INDUSTRIES ERP
 <h2 id="totalScrap">0</h2>
 </div>
 
-<div class="dashboardCard">
-<p>Low Stock Alerts</p>
-<h2 id="lowStockCount">0</h2>
 </div>
 
-</div>
-
-<!-- MATERIAL MASTER -->
+<!-- RAW MATERIAL -->
 
 <div class="container">
 
@@ -348,18 +249,17 @@ Raw Material Master
 
 <div class="grid">
 
-<input type="text" id="materialName" placeholder="Material Name">
+<input type="text"
+id="materialName"
+placeholder="Sheet Name">
 
-<input type="number" step="0.001" id="sheetWeight" placeholder="Sheet Weight">
-
-<input type="number" step="0.001" id="grossWeight" placeholder="Gross Weight">
-
-<input type="number" step="0.001" id="netWeight" placeholder="Net Weight">
-
-<input type="number" id="piecesPerSheet" placeholder="Pieces / Sheet">
+<input type="number"
+step="0.001"
+id="sheetWeight"
+placeholder="Sheet Weight (KG)">
 
 <button onclick="addMaterial()">
-Add Material
+Add Sheet
 </button>
 
 </div>
@@ -376,11 +276,25 @@ Product Master
 
 <div class="grid">
 
-<input type="text" id="productName" placeholder="Product Name">
+<input type="text"
+id="productName"
+placeholder="Product Name">
 
 <select id="productMaterial"></select>
 
-<input type="number" step="0.001" id="productNetWeight" placeholder="Product Net Weight">
+<input type="number"
+id="piecesPerSheet"
+placeholder="Pieces / Sheet">
+
+<input type="number"
+step="0.001"
+id="grossWeight"
+placeholder="Gross Weight">
+
+<input type="number"
+step="0.001"
+id="netWeight"
+placeholder="Net Weight">
 
 <button onclick="addProduct()">
 Add Product
@@ -390,7 +304,7 @@ Add Product
 
 </div>
 
-<!-- RM IN -->
+<!-- RM ENTRY -->
 
 <div class="container">
 
@@ -404,10 +318,16 @@ RM Stock IN
 
 <select id="rmMaterial"></select>
 
-<input type="number" step="0.001" id="rmKg" placeholder="IN KG">
+<input type="number"
+step="0.001"
+id="rmKg"
+placeholder="IN KG">
 
-<button class="greenBtn" onclick="addRMEntry()">
+<button class="greenBtn"
+onclick="addRMEntry()">
+
 Save RM IN
+
 </button>
 
 </div>
@@ -428,7 +348,9 @@ Production Entry
 
 <select id="productionProduct"></select>
 
-<input type="number" id="productionQty" placeholder="Production PCS">
+<input type="number"
+id="productionQty"
+placeholder="Production PCS">
 
 <button onclick="addProduction()">
 Save Production
@@ -452,10 +374,15 @@ FG Dispatch OUT
 
 <select id="fgProduct"></select>
 
-<input type="number" id="fgQty" placeholder="Dispatch PCS">
+<input type="number"
+id="fgQty"
+placeholder="Dispatch PCS">
 
-<button class="redBtn" onclick="dispatchFG()">
+<button class="redBtn"
+onclick="dispatchFG()">
+
 Dispatch FG
+
 </button>
 
 </div>
@@ -470,7 +397,8 @@ Dispatch FG
 Current Stock Summary
 </div>
 
-<div class="summaryGrid" id="summaryBox"></div>
+<div class="summaryGrid"
+id="summaryBox"></div>
 
 </div>
 
@@ -493,12 +421,13 @@ ERP Transaction History
 <th>Date</th>
 <th>Type</th>
 <th>Material/Product</th>
+<th>RM IN KG</th>
 <th>RM Used KG</th>
 <th>FG PCS</th>
 <th>FG Weight</th>
 <th>Scrap KG</th>
 <th>Balance KG</th>
-<th>Balance PCS</th>
+<th>Delete</th>
 
 </tr>
 
@@ -525,17 +454,24 @@ JSON.parse(localStorage.getItem("erp_products")) || [];
 let transactions =
 JSON.parse(localStorage.getItem("erp_transactions")) || [];
 
+// STOCK
+
 let rmStock = {};
 let fgStock = {};
 let scrapStock = {};
 
-// DATE AUTO
+// AUTO DATE
 
-document.getElementById("rmDate").valueAsDate = new Date();
-document.getElementById("prodDate").valueAsDate = new Date();
-document.getElementById("fgDate").valueAsDate = new Date();
+document.getElementById("rmDate").valueAsDate =
+new Date();
 
-// INIT
+document.getElementById("prodDate").valueAsDate =
+new Date();
+
+document.getElementById("fgDate").valueAsDate =
+new Date();
+
+// INITIALIZE
 
 function initialize(){
 
@@ -546,8 +482,7 @@ scrapStock = {};
 materials.forEach(m=>{
 
 rmStock[m.name] = {
-kg:0,
-pieces:0
+kg:0
 };
 
 scrapStock[m.name] = 0;
@@ -586,50 +521,48 @@ JSON.stringify(transactions)
 
 }
 
-// LOAD DROPDOWNS
+// LOAD DROPDOWN
 
 function loadDropdowns(){
 
-let materialDropdowns = [
-"productMaterial",
-"rmMaterial"
-];
+["productMaterial","rmMaterial"]
+.forEach(id=>{
 
-materialDropdowns.forEach(id=>{
-
-let select = document.getElementById(id);
+let select =
+document.getElementById(id);
 
 select.innerHTML = "";
 
 materials.forEach((m,index)=>{
 
 select.innerHTML += `
+
 <option value="${index}">
 ${m.name}
 </option>
+
 `;
 
 });
 
 });
 
-let productDropdowns = [
-"productionProduct",
-"fgProduct"
-];
+["productionProduct","fgProduct"]
+.forEach(id=>{
 
-productDropdowns.forEach(id=>{
-
-let select = document.getElementById(id);
+let select =
+document.getElementById(id);
 
 select.innerHTML = "";
 
 products.forEach((p,index)=>{
 
 select.innerHTML += `
+
 <option value="${index}">
 ${p.name}
 </option>
+
 `;
 
 });
@@ -642,41 +575,31 @@ ${p.name}
 
 function addMaterial(){
 
-let material = {
+let name =
+document.getElementById("materialName")
+.value.trim();
 
-name:
-document.getElementById("materialName").value,
+let sheetWeight =
+parseFloat(
+document.getElementById("sheetWeight").value
+) || 0;
 
-sheetWeight:
-parseFloat(document.getElementById("sheetWeight").value)||0,
-
-grossWeight:
-parseFloat(document.getElementById("grossWeight").value)||0,
-
-netWeight:
-parseFloat(document.getElementById("netWeight").value)||0,
-
-piecesPerSheet:
-parseFloat(document.getElementById("piecesPerSheet").value)||0
-
-};
-
-if(material.name==""){
-
-alert("Enter Material Name");
-return;
-
-}
-
-materials.push(material);
+materials.push({
+name,
+sheetWeight
+});
 
 saveAll();
-initialize();
-loadDropdowns();
-loadDashboard();
-loadSummary();
 
-alert("Material Added");
+initialize();
+
+recalculateAll();
+
+loadDropdowns();
+
+loadDashboard();
+
+loadSummary();
 
 }
 
@@ -685,39 +608,50 @@ alert("Material Added");
 function addProduct(){
 
 let productName =
-document.getElementById("productName").value;
+document.getElementById("productName")
+.value.trim();
 
 let material =
 materials[
 document.getElementById("productMaterial").value
 ];
 
+let piecesPerSheet =
+parseFloat(
+document.getElementById("piecesPerSheet").value
+);
+
+let grossWeight =
+parseFloat(
+document.getElementById("grossWeight").value
+);
+
 let netWeight =
 parseFloat(
-document.getElementById("productNetWeight").value
-)||0;
-
-if(productName==""){
-
-alert("Enter Product Name");
-return;
-
-}
+document.getElementById("netWeight").value
+);
 
 products.push({
 
 name:productName,
 material:material.name,
+piecesPerSheet,
+grossWeight,
 netWeight
 
 });
 
 saveAll();
+
 initialize();
+
+recalculateAll();
+
 loadDropdowns();
+
 loadDashboard();
 
-alert("Product Added");
+loadSummary();
 
 }
 
@@ -735,25 +669,11 @@ parseFloat(
 document.getElementById("rmKg").value
 );
 
-if(!kg || kg<=0){
-
-alert("Enter Valid KG");
-return;
-
-}
-
-let pieces = Math.floor(
-
-(kg/material.sheetWeight)
-*
-material.piecesPerSheet
-
-);
-
 rmStock[material.name].kg += kg;
-rmStock[material.name].pieces += pieces;
 
 transactions.push({
+
+id:Date.now(),
 
 date:
 document.getElementById("rmDate").value,
@@ -762,28 +682,28 @@ type:"RM IN",
 
 name:material.name,
 
-rmUsed:0,
+rmIn:kg.toFixed(3),
+
+rmUsed:"0.000",
 
 fgPcs:0,
 
-fgWeight:0,
+fgWeight:"0.000",
 
-scrap:0,
+scrap:"0.000",
 
 balanceKg:
-rmStock[material.name].kg.toFixed(3),
-
-balancePcs:
-rmStock[material.name].pieces
+rmStock[material.name].kg.toFixed(3)
 
 });
 
 saveAll();
-loadDashboard();
-loadSummary();
-loadTransactions();
 
-alert("RM Stock Added");
+loadDashboard();
+
+loadSummary();
+
+loadTransactions();
 
 }
 
@@ -801,20 +721,8 @@ parseFloat(
 document.getElementById("productionQty").value
 );
 
-if(!qty || qty<=0){
-
-alert("Enter Production Qty");
-return;
-
-}
-
-let material =
-materials.find(
-m=>m.name==product.material
-);
-
 let rmUsed =
-qty * material.grossWeight;
+qty * product.grossWeight;
 
 let fgWeight =
 qty * product.netWeight;
@@ -822,26 +730,26 @@ qty * product.netWeight;
 let scrap =
 rmUsed - fgWeight;
 
-let rmPiecesUsed = qty;
-
 if(
-rmStock[material.name].kg < rmUsed
+rmStock[product.material].kg < rmUsed
 ){
 
-alert("Not Enough RM KG");
+alert("Not Enough RM Stock");
 return;
 
 }
 
-rmStock[material.name].kg -= rmUsed;
-rmStock[material.name].pieces -= rmPiecesUsed;
+rmStock[product.material].kg -= rmUsed;
 
 fgStock[product.name].pcs += qty;
+
 fgStock[product.name].weight += fgWeight;
 
-scrapStock[material.name] += scrap;
+scrapStock[product.material] += scrap;
 
 transactions.push({
+
+id:Date.now(),
 
 date:
 document.getElementById("prodDate").value,
@@ -849,6 +757,8 @@ document.getElementById("prodDate").value,
 type:"PRODUCTION",
 
 name:product.name,
+
+rmIn:"0.000",
 
 rmUsed:
 rmUsed.toFixed(3),
@@ -862,23 +772,21 @@ scrap:
 scrap.toFixed(3),
 
 balanceKg:
-rmStock[material.name].kg.toFixed(3),
-
-balancePcs:
-rmStock[material.name].pieces
+rmStock[product.material].kg.toFixed(3)
 
 });
 
 saveAll();
-loadDashboard();
-loadSummary();
-loadTransactions();
 
-alert("Production Saved");
+loadDashboard();
+
+loadSummary();
+
+loadTransactions();
 
 }
 
-// FG DISPATCH
+// FG OUT
 
 function dispatchFG(){
 
@@ -905,6 +813,8 @@ fgStock[product.name].pcs -= qty;
 
 transactions.push({
 
+id:Date.now(),
+
 date:
 document.getElementById("fgDate").value,
 
@@ -912,27 +822,103 @@ type:"FG OUT",
 
 name:product.name,
 
-rmUsed:0,
+rmIn:"0.000",
+
+rmUsed:"0.000",
 
 fgPcs:qty,
 
-fgWeight:0,
+fgWeight:"0.000",
 
-scrap:0,
+scrap:"0.000",
 
-balanceKg:0,
-
-balancePcs:
-fgStock[product.name].pcs
+balanceKg:"0.000"
 
 });
 
 saveAll();
+
 loadDashboard();
+
 loadSummary();
+
 loadTransactions();
 
-alert("FG Dispatched");
+}
+
+// DELETE
+
+function deleteTransaction(id){
+
+transactions =
+transactions.filter(
+t => t.id !== id
+);
+
+recalculateAll();
+
+saveAll();
+
+loadDashboard();
+
+loadSummary();
+
+loadTransactions();
+
+}
+
+// RECALCULATE
+
+function recalculateAll(){
+
+initialize();
+
+transactions.forEach(t=>{
+
+if(t.type=="RM IN"){
+
+rmStock[t.name].kg +=
+parseFloat(t.rmIn || 0);
+
+}
+
+else if(t.type=="PRODUCTION"){
+
+let product =
+products.find(
+p => p.name === t.name
+);
+
+if(product){
+
+rmStock[product.material].kg -=
+parseFloat(t.rmUsed || 0);
+
+fgStock[product.name].pcs +=
+parseFloat(t.fgPcs || 0);
+
+fgStock[product.name].weight +=
+parseFloat(t.fgWeight || 0);
+
+scrapStock[product.material] +=
+parseFloat(t.scrap || 0);
+
+}
+
+}
+
+else if(t.type=="FG OUT"){
+
+if(fgStock[t.name]){
+
+fgStock[t.name].pcs -=
+parseFloat(t.fgPcs || 0);
+
+}
+
+}
+
+});
 
 }
 
@@ -940,40 +926,27 @@ alert("FG Dispatched");
 
 function loadDashboard(){
 
+let totalKg = 0;
+let totalFG = 0;
+let totalScrap = 0;
+
+Object.values(rmStock).forEach(s=>{
+totalKg += s.kg;
+});
+
+Object.values(fgStock).forEach(s=>{
+totalFG += s.pcs;
+});
+
+Object.values(scrapStock).forEach(v=>{
+totalScrap += v;
+});
+
 document.getElementById("totalMaterials")
 .innerText = materials.length;
 
 document.getElementById("totalProducts")
 .innerText = products.length;
-
-let totalKg = 0;
-let totalFG = 0;
-let totalScrap = 0;
-let low = 0;
-
-Object.values(rmStock).forEach(s=>{
-
-totalKg += s.kg;
-
-if(s.pieces < 50){
-
-low++;
-
-}
-
-});
-
-Object.values(fgStock).forEach(s=>{
-
-totalFG += s.pcs;
-
-});
-
-Object.values(scrapStock).forEach(v=>{
-
-totalScrap += v;
-
-});
 
 document.getElementById("totalRmKg")
 .innerText = totalKg.toFixed(3);
@@ -983,9 +956,6 @@ document.getElementById("totalFgPcs")
 
 document.getElementById("totalScrap")
 .innerText = totalScrap.toFixed(3);
-
-document.getElementById("lowStockCount")
-.innerText = low;
 
 }
 
@@ -1012,35 +982,26 @@ box.innerHTML += `
 <h3>${m.name}</h3>
 
 <p>
-RM KG:
+
+RM Stock:
 <span class="stockGreen">
-${rm.kg.toFixed(3)}
+
+${rm.kg.toFixed(3)} KG
+
 </span>
+
 </p>
 
 <p>
-RM PCS:
-<span class="stockBlue">
-${rm.pieces}
-</span>
-</p>
 
-<p>
 Scrap:
 <span class="stockRed">
+
 ${scrap.toFixed(3)} KG
+
 </span>
+
 </p>
-
-<hr>
-
-${
-rm.pieces < 50
-?
-'<div class="lowStock">Low RM Stock</div>'
-:
-''
-}
 
 </div>
 
@@ -1059,23 +1020,32 @@ box.innerHTML += `
 <h3>${p.name}</h3>
 
 <p>
+
 FG PCS:
 <span class="stockBlue">
+
 ${fg.pcs}
+
 </span>
+
 </p>
 
 <p>
+
 FG Weight:
 <span class="stockGreen">
-${fg.weight.toFixed(3)}
-KG
+
+${fg.weight.toFixed(3)} KG
+
 </span>
+
 </p>
 
 <p>
+
 Raw Material:
 ${p.material}
+
 </p>
 
 </div>
@@ -1086,7 +1056,7 @@ ${p.material}
 
 }
 
-// TRANSACTIONS
+// TRANSACTION
 
 function loadTransactions(){
 
@@ -1095,7 +1065,7 @@ document.getElementById("entryTable");
 
 table.innerHTML = "";
 
-transactions
+[...transactions]
 .reverse()
 .forEach(t=>{
 
@@ -1132,6 +1102,8 @@ table.innerHTML += `
 
 <td>${t.name}</td>
 
+<td>${t.rmIn}</td>
+
 <td>${t.rmUsed}</td>
 
 <td>${t.fgPcs}</td>
@@ -1142,7 +1114,16 @@ table.innerHTML += `
 
 <td>${t.balanceKg}</td>
 
-<td>${t.balancePcs}</td>
+<td>
+
+<button class="redBtn"
+onclick="deleteTransaction(${t.id})">
+
+Delete
+
+</button>
+
+</td>
 
 </tr>
 
@@ -1152,43 +1133,18 @@ table.innerHTML += `
 
 }
 
-// RECALCULATE
-
-function recalculateAll(){
-
-initialize();
-
-transactions.forEach(t=>{
-
-if(t.type=="RM IN"){
-
-let material =
-materials.find(
-m=>m.name==t.name
-);
-
-if(material){
-
-rmStock[material.name].kg =
-parseFloat(t.balanceKg);
-
-rmStock[material.name].pieces =
-parseFloat(t.balancePcs);
-
-}
-
-}
-
-});
-
-}
-
 // START
 
 initialize();
+
+recalculateAll();
+
 loadDropdowns();
+
 loadDashboard();
+
 loadSummary();
+
 loadTransactions();
 
 </script>
