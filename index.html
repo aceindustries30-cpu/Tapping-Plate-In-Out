@@ -1,40 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE html><html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Tapping Plate In Out Inventory Management System</title>
-
-<meta name="description"
-content="Professional Tapping Plate In Out Inventory and Stock Management System for production tracking, sheet management and stock control.">
-
-<meta name="keywords"
-content="Tapping Plate, Inventory Management, Stock Management, Production Tracking, Sheet Inventory, Ace Industries">
-
+<meta name="description" content="Professional Tapping Plate In Out Inventory and Stock Management System for production tracking, sheet management and stock control.">
+<meta name="keywords" content="Tapping Plate, Inventory Management, Stock Management, Production Tracking, Sheet Inventory, Ace Industries">
 <meta name="author" content="Ace Industries">
-
 <meta name="robots" content="index, follow">
-
-<meta property="og:title"
-content="Tapping Plate Inventory System">
-
-<meta property="og:description"
-content="Professional In Out Stock Management System">
-
-<meta property="og:type"
-content="website">
-
-<meta property="og:url"
-content="https://aceindustries30-cpu.github.io/Tapping-Plate-In-Out/">
-
-<link rel="canonical"
-href="https://aceindustries30-cpu.github.io/Tapping-Plate-In-Out/">
-
-<style>
-
+<meta property="og:title" content="Tapping Plate Inventory System">
+<meta property="og:description" content="Professional In Out Stock Management System">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aceindustries30-cpu.github.io/Tapping-Plate-In-Out/">
+<link rel="canonical" href="https://aceindustries30-cpu.github.io/Tapping-Plate-In-Out/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tapping Plate In Out Inventory Management System</title><style>
 *{
 margin:0;
 padding:0;
@@ -53,6 +30,18 @@ margin-bottom:20px;
 color:#0f172a;
 }
 
+.topNav{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:20px;
+justify-content:center;
+}
+
+.topNav button{
+background:#0f172a;
+}
+
 .container{
 background:white;
 padding:20px;
@@ -62,7 +51,7 @@ box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
 .sectionTitle{
-font-size:20px;
+font-size:22px;
 margin-bottom:15px;
 font-weight:bold;
 color:#0f172a;
@@ -70,7 +59,7 @@ color:#0f172a;
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:12px;
 }
 
@@ -97,14 +86,6 @@ opacity:0.9;
 background:#dc2626;
 }
 
-.editBtn{
-background:#f59e0b;
-}
-
-.exportBtn{
-background:#059669;
-}
-
 .tableContainer{
 overflow-x:auto;
 }
@@ -127,44 +108,10 @@ border:1px solid #cbd5e1;
 text-align:center;
 }
 
-.summaryGrid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:15px;
-}
-
-.card{
-background:#f8fafc;
-padding:15px;
-border-radius:10px;
-border-left:5px solid #2563eb;
-}
-
-.card h3{
-margin-bottom:10px;
-}
-
-.stockGreen{
-color:green;
-font-weight:bold;
-}
-
-.stockBlue{
-color:#2563eb;
-font-weight:bold;
-}
-
-.lowStock{
-color:red;
-font-weight:bold;
-margin-top:10px;
-}
-
 .dashboard{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:15px;
-margin-bottom:20px;
 }
 
 .dashboardCard{
@@ -180,1012 +127,521 @@ margin-top:10px;
 color:#2563eb;
 }
 
-hr{
-margin:10px 0;
+.card{
+background:#f8fafc;
+padding:15px;
+border-radius:10px;
+margin-bottom:10px;
+border-left:5px solid #2563eb;
 }
 
-</style>
+.pageSection{
+display:none;
+}
 
-</head>
-
-<body>
-
-<h1>Professional Material Stock Management</h1>
-
-<!-- DASHBOARD -->
-
-<div class="dashboard">
-
-<div class="dashboardCard">
-<p>Total Materials</p>
-<h2 id="totalMaterials">0</h2>
-</div>
-
-<div class="dashboardCard">
-<p>Total Stock KG</p>
+#dashboardSection{
+display:block;
+}
+</style></head>
+<body><h1>Professional Material Stock Management</h1><div class="topNav">
+<button onclick="showSection('dashboardSection')">Dashboard</button>
+<button onclick="showSection('rmSection')">Raw Material</button>
+<button onclick="showSection('productSection')">Product Master</button>
+<button onclick="showSection('productionSection')">Production</button>
+<button onclick="showSection('fgSection')">FG Stock</button>
+<button onclick="showSection('dispatchSection')">Dispatch</button>
+<button onclick="showSection('reportSection')">Reports</button>
+</div><!-- DASHBOARD --><div id="dashboardSection" class="pageSection">
+<div class="dashboard"><div class="dashboardCard">
+<p>Total RM</p>
+<h2 id="totalRM">0</h2>
+</div><div class="dashboardCard">
+<p>Total Products</p>
+<h2 id="totalProducts">0</h2>
+</div><div class="dashboardCard">
+<p>RM Stock KG</p>
 <h2 id="totalKg">0</h2>
+</div><div class="dashboardCard">
+<p>FG Stock PCS</p>
+<h2 id="totalFG">0</h2>
+</div></div>
+</div><!-- RAW MATERIAL --><div id="rmSection" class="pageSection"><div class="container">
+<div class="sectionTitle">Add Raw Material</div><div class="grid">
+<input type="text" id="rmName" placeholder="RM Name">
+<input type="number" id="sheetWeight" placeholder="Sheet Weight">
+<input type="number" id="pcsPerSheet" placeholder="PCS Per Sheet">
+<button onclick="addRM()">Add RM</button>
 </div>
-
-<div class="dashboardCard">
-<p>Total Stock PCS</p>
-<h2 id="totalPcs">0</h2>
+</div><div class="container">
+<div class="sectionTitle">RM Stock IN</div><div class="grid">
+<input type="date" id="rmDate">
+<select id="rmSelect"></select>
+<input type="number" id="rmKg" placeholder="IN KG">
+<button onclick="addRMStock()">Save IN</button>
 </div>
-
-<div class="dashboardCard">
-<p>Low Stock Items</p>
-<h2 id="lowStockCount">0</h2>
-</div>
-
-</div>
-
-<!-- ADD MATERIAL -->
-
-<div class="container">
-
-<div class="sectionTitle">
-Add Material
-</div>
-
-<div class="grid">
-
-<input type="text" id="materialName" placeholder="Material Name">
-
-<input type="number" step="0.001" id="sheetWeight" placeholder="Weight / Sheet">
-
-<input type="number" step="0.001" id="grossWeight" placeholder="Gross Weight">
-
-<input type="number" step="0.001" id="netWeight" placeholder="Net Weight / Piece">
-
-<input type="number" id="piecesPerSheet" placeholder="Pieces / Sheet">
-
-<button onclick="addMaterial()">
-Add Material
-</button>
-
-</div>
-
-</div>
-
-<!-- STOCK ENTRY -->
-
-<div class="container">
-
-<div class="sectionTitle">
-Stock IN / OUT
-</div>
-
-<div class="grid">
-
-<input type="date" id="date">
-
-<select id="materialSelect"></select>
-
-<select id="entryType">
-
-<option value="IN">
-Material IN (KG)
-</option>
-
-<option value="OUT">
-Material OUT (PCS)
-</option>
-
-</select>
-
-<input type="number" id="entryValue" placeholder="Enter Value">
-
-<button onclick="addEntry()">
-Save Entry
-</button>
-
-<button onclick="downloadCSV()">
-Download CSV
-</button>
-
-<button class="exportBtn" onclick="backupData()">
-Backup JSON
-</button>
-
-</div>
-
-</div>
-
-<!-- DATE FILTER -->
-
-<div class="container">
-
-<div class="sectionTitle">
-Date Filter
-</div>
-
-<div class="grid">
-
-<input type="date" id="fromDate">
-
-<input type="date" id="toDate">
-
-<button onclick="filterEntries()">
-Filter
-</button>
-
-<button onclick="loadEntries()">
-Reset
-</button>
-
-</div>
-
-</div>
-
-<!-- STOCK SUMMARY -->
-
-<div class="container">
-
-<div class="sectionTitle">
-Current Stock Summary
-</div>
-
-<div class="summaryGrid" id="summaryBox"></div>
-
-</div>
-
-<!-- MATERIAL MASTER -->
-
-<div class="container">
-
-<div class="sectionTitle">
-Material Master
-</div>
-
+</div><div class="container">
+<div class="sectionTitle">Raw Material Table</div>
 <div class="tableContainer">
-
 <table>
-
 <thead>
-
 <tr>
-
-<th>Material</th>
-<th>Weight/Sheet</th>
-<th>Gross Weight</th>
-<th>Net Weight</th>
-<th>Pieces/Sheet</th>
+<th>RM Name</th>
+<th>Sheet Weight</th>
+<th>PCS/Sheet</th>
+<th>Stock KG</th>
 <th>Delete</th>
-
 </tr>
-
 </thead>
-
-<tbody id="materialTable"></tbody>
-
+<tbody id="rmTable"></tbody>
 </table>
-
 </div>
-
+</div></div><!-- PRODUCT MASTER --><div id="productSection" class="pageSection"><div class="container">
+<div class="sectionTitle">Add Product</div><div class="grid">
+<input type="text" id="productName" placeholder="Product Name">
+<select id="productRM"></select>
+<input type="number" id="productPCS" placeholder="PCS Per Sheet">
+<input type="number" id="productWeight" placeholder="Product Weight">
+<button onclick="addProduct()">Add Product</button>
 </div>
-
-<!-- TRANSACTION HISTORY -->
-
-<div class="container">
-
-<div class="sectionTitle">
-Stock Transaction History
-</div>
-
+</div><div class="container">
+<div class="sectionTitle">Product Table</div>
 <div class="tableContainer">
-
 <table>
-
 <thead>
-
 <tr>
-
+<th>Product</th>
+<th>Raw Material</th>
+<th>PCS/Sheet</th>
+<th>Product Weight</th>
+<th>Delete</th>
+</tr>
+</thead>
+<tbody id="productTable"></tbody>
+</table>
+</div>
+</div></div><!-- PRODUCTION --><div id="productionSection" class="pageSection"><div class="container">
+<div class="sectionTitle">Production Entry</div><div class="grid">
+<input type="date" id="productionDate">
+<select id="productionProduct"></select>
+<input type="number" id="sheetsUsed" placeholder="Sheets Used">
+<button onclick="saveProduction()">Save Production</button>
+</div>
+</div><div class="container">
+<div class="sectionTitle">Production History</div>
+<div class="tableContainer">
+<table>
+<thead>
+<tr>
 <th>Date</th>
-<th>Material</th>
-<th>Type</th>
-<th>IN KG</th>
-<th>OUT PCS</th>
-<th>OUT KG</th>
-<th>Balance PCS</th>
-<th>Balance KG</th>
-<th>Delete</th>
-
+<th>Product</th>
+<th>RM Used KG</th>
+<th>FG PCS</th>
+<th>FG KG</th>
+<th>Scrap</th>
 </tr>
-
 </thead>
-
-<tbody id="entryTable"></tbody>
-
+<tbody id="productionTable"></tbody>
 </table>
-
 </div>
-
+</div></div><!-- FG --><div id="fgSection" class="pageSection">
+<div class="container">
+<div class="sectionTitle">Finished Goods Stock</div>
+<div id="fgStockBox"></div>
 </div>
-
-<script>
+</div><!-- DISPATCH --><div id="dispatchSection" class="pageSection">
+<div class="container">
+<div class="sectionTitle">Dispatch FG</div><div class="grid">
+<input type="date" id="dispatchDate">
+<select id="dispatchProduct"></select>
+<input type="number" id="dispatchQty" placeholder="Dispatch PCS">
+<button onclick="saveDispatch()">Dispatch</button>
+</div>
+</div><div class="container">
+<div class="sectionTitle">Dispatch History</div>
+<div class="tableContainer">
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Product</th>
+<th>PCS</th>
+<th>KG</th>
+</tr>
+</thead>
+<tbody id="dispatchTable"></tbody>
+</table>
+</div>
+</div>
+</div><!-- REPORT --><div id="reportSection" class="pageSection">
+<div class="container">
+<div class="sectionTitle">Scrap Report</div>
+<div class="tableContainer">
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Product</th>
+<th>RM KG</th>
+<th>FG KG</th>
+<th>Scrap</th>
+</tr>
+</thead>
+<tbody id="scrapTable"></tbody>
+</table>
+</div>
+</div>
+</div><script>
 
 // DEFAULT MATERIALS
-
 let defaultMaterials = [
-
 {
 name:"HRC Sheet 9.5*32 M10",
 sheetWeight:3.025,
-grossWeight:0.1,
-netWeight:0.068,
-piecesPerSheet:30
+pcsPerSheet:30
 },
-
 {
 name:"HRC Sheet 6*28 WB",
 sheetWeight:1.6,
-grossWeight:0.06,
-netWeight:0.06,
-piecesPerSheet:21
+pcsPerSheet:21
 },
-
 {
 name:"HRC Sheet 5*58/5*22 Spcr",
 sheetWeight:2.775,
-grossWeight:0.055,
-netWeight:0.05,
-piecesPerSheet:48
+pcsPerSheet:48
 }
-
 ];
 
-// STORAGE
+let materials = JSON.parse(localStorage.getItem('materials')) || defaultMaterials;
+let products = JSON.parse(localStorage.getItem('products')) || [];
+let stock = JSON.parse(localStorage.getItem('stock')) || {};
+let fgStock = JSON.parse(localStorage.getItem('fgStock')) || {};
+let productionEntries = JSON.parse(localStorage.getItem('productionEntries')) || [];
+let dispatchEntries = JSON.parse(localStorage.getItem('dispatchEntries')) || [];
 
-let materials =
-JSON.parse(localStorage.getItem("materials"))
-|| defaultMaterials;
+function showSection(id){
 
-let entries =
-JSON.parse(localStorage.getItem("entries"))
-|| [];
+document.querySelectorAll('.pageSection').forEach(section=>{
+section.style.display='none';
+});
 
-let stock = {};
+document.getElementById(id).style.display='block';
+}
 
-// AUTO DATE
+function saveData(){
+localStorage.setItem('materials',JSON.stringify(materials));
+localStorage.setItem('products',JSON.stringify(products));
+localStorage.setItem('stock',JSON.stringify(stock));
+localStorage.setItem('fgStock',JSON.stringify(fgStock));
+localStorage.setItem('productionEntries',JSON.stringify(productionEntries));
+localStorage.setItem('dispatchEntries',JSON.stringify(dispatchEntries));
+}
 
-document.getElementById("date").valueAsDate =
-new Date();
+function addRM(){
 
-// INITIALIZE STOCK
+let name=document.getElementById('rmName').value;
+let sheetWeight=parseFloat(document.getElementById('sheetWeight').value)||0;
+let pcsPerSheet=parseFloat(document.getElementById('pcsPerSheet').value)||0;
 
-function initializeStock(){
+materials.push({name,sheetWeight,pcsPerSheet});
 
-stock = {};
+stock[name]={kg:0};
+
+saveData();
+loadAll();
+
+alert('RM Added');
+}
+
+function addRMStock(){
+
+let rm=document.getElementById('rmSelect').value;
+let kg=parseFloat(document.getElementById('rmKg').value)||0;
+
+stock[rm].kg += kg;
+
+saveData();
+loadAll();
+
+alert('Stock Added');
+}
+
+function addProduct(){
+
+let productName=document.getElementById('productName').value;
+let rawMaterial=document.getElementById('productRM').value;
+let pcsPerSheet=parseFloat(document.getElementById('productPCS').value)||0;
+let productWeight=parseFloat(document.getElementById('productWeight').value)||0;
+
+products.push({
+productName,
+rawMaterial,
+pcsPerSheet,
+productWeight
+});
+
+fgStock[productName]={pcs:0,kg:0};
+
+saveData();
+loadAll();
+
+alert('Product Added');
+}
+
+function saveProduction(){
+
+let productName=document.getElementById('productionProduct').value;
+let sheetsUsed=parseFloat(document.getElementById('sheetsUsed').value)||0;
+
+let product=products.find(p=>p.productName===productName);
+let material=materials.find(m=>m.name===product.rawMaterial);
+
+let rmUsed=sheetsUsed*material.sheetWeight;
+let fgPCS=sheetsUsed*product.pcsPerSheet;
+let fgKG=fgPCS*product.productWeight;
+let scrap=rmUsed-fgKG;
+
+if(stock[material.name].kg<rmUsed){
+alert('Not Enough RM Stock');
+return;
+}
+
+stock[material.name].kg -= rmUsed;
+
+fgStock[productName].pcs += fgPCS;
+fgStock[productName].kg += fgKG;
+
+productionEntries.push({
+date:new Date().toISOString().split('T')[0],
+product:productName,
+rmUsed,
+fgPCS,
+fgKG,
+scrap
+});
+
+saveData();
+loadAll();
+
+alert('Production Saved');
+}
+
+function saveDispatch(){
+
+let product=document.getElementById('dispatchProduct').value;
+let qty=parseFloat(document.getElementById('dispatchQty').value)||0;
+
+if(fgStock[product].pcs<qty){
+alert('Not Enough FG');
+return;
+}
+
+let p=products.find(x=>x.productName===product);
+
+let kg=qty*p.productWeight;
+
+fgStock[product].pcs -= qty;
+fgStock[product].kg -= kg;
+
+dispatchEntries.push({
+date:new Date().toISOString().split('T')[0],
+product,
+qty,
+kg
+});
+
+saveData();
+loadAll();
+
+alert('Dispatch Saved');
+}
+
+function loadAll(){
+
+loadRMTable();
+loadProductTable();
+loadDropdowns();
+loadProduction();
+loadFG();
+loadDispatch();
+loadScrap();
+loadDashboard();
+
+}
+
+function loadDropdowns(){
+
+let rmSelect=document.getElementById('rmSelect');
+let productRM=document.getElementById('productRM');
+let productionProduct=document.getElementById('productionProduct');
+let dispatchProduct=document.getElementById('dispatchProduct');
+
+rmSelect.innerHTML='';
+productRM.innerHTML='';
+productionProduct.innerHTML='';
+dispatchProduct.innerHTML='';
 
 materials.forEach(m=>{
 
-stock[m.name] = {
-
-kg:0,
-pieces:0
-
-};
+rmSelect.innerHTML += `<option value="${m.name}">${m.name}</option>`;
+productRM.innerHTML += `<option value="${m.name}">${m.name}</option>`;
 
 });
 
+products.forEach(p=>{
+
+productionProduct.innerHTML += `<option value="${p.productName}">${p.productName}</option>`;
+dispatchProduct.innerHTML += `<option value="${p.productName}">${p.productName}</option>`;
+
+});
 }
 
-// LOAD
+function loadRMTable(){
 
-loadMaterialDropdown();
-loadMaterialTable();
-recalculateStock();
-loadEntries();
-loadSummary();
-loadDashboard();
-
-// MATERIAL DROPDOWN
-
-function loadMaterialDropdown(){
-
-let select =
-document.getElementById("materialSelect");
-
-select.innerHTML = "";
+let table=document.getElementById('rmTable');
+table.innerHTML='';
 
 materials.forEach((m,index)=>{
 
-select.innerHTML += `
-
-<option value="${index}">
-${m.name}
-</option>
-
-`;
-
-});
-
-}
-
-// ADD MATERIAL
-
-function addMaterial(){
-
-let name =
-document.getElementById("materialName")
-.value.trim();
-
-let sheetWeight =
-parseFloat(
-document.getElementById("sheetWeight").value
-) || 0;
-
-let grossWeight =
-parseFloat(
-document.getElementById("grossWeight").value
-) || 0;
-
-let netWeight =
-parseFloat(
-document.getElementById("netWeight").value
-) || 0;
-
-let piecesPerSheet =
-parseFloat(
-document.getElementById("piecesPerSheet").value
-) || 0;
-
-if(name==""){
-
-alert("Enter Material Name");
-return;
-
-}
-
-// DUPLICATE CHECK
-
-let exists = materials.some(
-m => m.name.toLowerCase() === name.toLowerCase()
-);
-
-if(exists){
-
-alert("Material Already Exists");
-return;
-
-}
-
-materials.push({
-
-name,
-sheetWeight,
-grossWeight,
-netWeight,
-piecesPerSheet
-
-});
-
-saveAll();
-
-loadMaterialDropdown();
-loadMaterialTable();
-recalculateStock();
-loadSummary();
-loadDashboard();
-
-alert("Material Added Successfully");
-
-}
-
-// MATERIAL TABLE
-
-function loadMaterialTable(){
-
-let table =
-document.getElementById("materialTable");
-
-table.innerHTML = "";
-
-materials.forEach((m,index)=>{
+let kg=stock[m.name]?.kg || 0;
 
 table.innerHTML += `
-
 <tr>
-
 <td>${m.name}</td>
 <td>${m.sheetWeight}</td>
-<td>${m.grossWeight}</td>
-<td>${m.netWeight}</td>
-<td>${m.piecesPerSheet}</td>
-
-<td>
-
-<button class="deleteBtn"
-onclick="deleteMaterial(${index})">
-
-Delete
-
-</button>
-
-</td>
-
+<td>${m.pcsPerSheet}</td>
+<td>${kg.toFixed(3)}</td>
+<td><button class="deleteBtn" onclick="deleteRM(${index})">Delete</button></td>
 </tr>
-
 `;
-
 });
-
 }
 
-// DELETE MATERIAL
+function loadProductTable(){
 
-function deleteMaterial(index){
+let table=document.getElementById('productTable');
+table.innerHTML='';
 
-let confirmDelete =
-confirm("Delete Material ?");
-
-if(confirmDelete){
-
-let materialName =
-materials[index].name;
-
-materials.splice(index,1);
-
-entries = entries.filter(
-e => e.material !== materialName
-);
-
-saveAll();
-
-loadMaterialDropdown();
-loadMaterialTable();
-recalculateStock();
-loadEntries();
-loadSummary();
-loadDashboard();
-
-}
-
-}
-
-// ADD ENTRY
-
-function addEntry(){
-
-let date =
-document.getElementById("date").value;
-
-let materialIndex =
-document.getElementById("materialSelect").value;
-
-let type =
-document.getElementById("entryType").value;
-
-let value =
-parseFloat(
-document.getElementById("entryValue").value
-);
-
-if(!value || value<=0){
-
-alert("Enter Valid Value");
-return;
-
-}
-
-let material = materials[materialIndex];
-
-let inKg = 0;
-let outPieces = 0;
-let outKg = 0;
-
-let currentKg =
-stock[material.name].kg;
-
-let currentPieces =
-stock[material.name].pieces;
-
-// IN ENTRY
-
-if(type=="IN"){
-
-inKg = value;
-
-let pieces = 0;
-
-if(
-material.sheetWeight > 0 &&
-material.piecesPerSheet > 0
-){
-
-pieces = Math.floor(
-
-(inKg / material.sheetWeight)
-*
-material.piecesPerSheet
-
-);
-
-}
-
-currentKg += inKg;
-currentPieces += pieces;
-
-}
-
-// OUT ENTRY
-
-else{
-
-outPieces = value;
-
-if(
-material.sheetWeight > 0 &&
-material.piecesPerSheet > 0
-){
-
-outKg =
-outPieces *
-(
-material.sheetWeight /
-material.piecesPerSheet
-);
-
-}
-
-if(currentPieces < outPieces){
-
-alert("Not Enough Stock");
-return;
-
-}
-
-currentKg -= outKg;
-currentPieces -= outPieces;
-
-}
-
-// NEGATIVE FIX
-
-if(currentKg < 0){
-
-currentKg = 0;
-
-}
-
-currentKg =
-parseFloat(currentKg.toFixed(3));
-
-stock[material.name].kg = currentKg;
-stock[material.name].pieces = currentPieces;
-
-entries.push({
-
-date,
-material:material.name,
-type,
-inKg:inKg.toFixed(3),
-outPieces,
-outKg:outKg.toFixed(3),
-balancePieces:currentPieces,
-balanceKg:currentKg.toFixed(3)
-
-});
-
-saveAll();
-
-loadEntries();
-loadSummary();
-loadDashboard();
-
-document.getElementById("entryValue").value = "";
-
-}
-
-// LOAD ENTRIES
-
-function loadEntries(filteredEntries = null){
-
-let table =
-document.getElementById("entryTable");
-
-table.innerHTML = "";
-
-let displayEntries =
-filteredEntries || entries;
-
-// SORT LATEST FIRST
-
-displayEntries.sort((a,b)=>
-new Date(b.date)-new Date(a.date)
-);
-
-displayEntries.forEach((e,index)=>{
+products.forEach((p,index)=>{
 
 table.innerHTML += `
-
 <tr>
-
-<td>${e.date}</td>
-<td>${e.material}</td>
-<td>${e.type}</td>
-<td>${e.inKg}</td>
-<td>${e.outPieces}</td>
-<td>${e.outKg}</td>
-
-<td class="stockBlue">
-${e.balancePieces}
-</td>
-
-<td class="stockGreen">
-${e.balanceKg}
-</td>
-
-<td>
-
-<button class="deleteBtn"
-onclick="deleteEntry(${index})">
-
-Delete
-
-</button>
-
-</td>
-
+<td>${p.productName}</td>
+<td>${p.rawMaterial}</td>
+<td>${p.pcsPerSheet}</td>
+<td>${p.productWeight}</td>
+<td><button class="deleteBtn" onclick="deleteProduct(${index})">Delete</button></td>
 </tr>
-
 `;
-
 });
-
 }
 
-// FILTER ENTRIES
+function loadProduction(){
 
-function filterEntries(){
+let table=document.getElementById('productionTable');
+table.innerHTML='';
 
-let from =
-document.getElementById("fromDate").value;
+productionEntries.forEach(p=>{
 
-let to =
-document.getElementById("toDate").value;
-
-if(!from || !to){
-
-alert("Select Date Range");
-return;
-
-}
-
-let filtered = entries.filter(e=>{
-
-return e.date >= from &&
-e.date <= to;
-
+table.innerHTML += `
+<tr>
+<td>${p.date}</td>
+<td>${p.product}</td>
+<td>${p.rmUsed.toFixed(3)}</td>
+<td>${p.fgPCS}</td>
+<td>${p.fgKG.toFixed(3)}</td>
+<td>${p.scrap.toFixed(3)}</td>
+</tr>
+`;
 });
-
-loadEntries(filtered);
-
 }
 
-// SUMMARY
+function loadFG(){
 
-function loadSummary(){
+let box=document.getElementById('fgStockBox');
+box.innerHTML='';
 
-let box =
-document.getElementById("summaryBox");
-
-box.innerHTML = "";
-
-materials.forEach(m=>{
-
-let currentStock =
-stock[m.name] || {
-kg:0,
-pieces:0
-};
+Object.keys(fgStock).forEach(name=>{
 
 box.innerHTML += `
-
 <div class="card">
-
-<h3>${m.name}</h3>
-
-<p>
-<b>Weight/Sheet:</b>
-${m.sheetWeight}
-</p>
-
-<p>
-<b>Gross Weight:</b>
-${m.grossWeight}
-</p>
-
-<p>
-<b>Net Weight:</b>
-${m.netWeight}
-</p>
-
-<p>
-<b>Pieces/Sheet:</b>
-${m.piecesPerSheet}
-</p>
-
-<hr>
-
-<p class="stockGreen">
-
-Total Stock KG:
-${currentStock.kg.toFixed(3)}
-
-</p>
-
-<p class="stockBlue">
-
-Total Stock PCS:
-${currentStock.pieces}
-
-</p>
-
-${
-currentStock.pieces < 50
-?
-'<p class="lowStock">Low Stock Alert</p>'
-:
-''
-}
-
+<h3>${name}</h3>
+<p>Stock PCS : ${fgStock[name].pcs}</p>
+<p>Stock KG : ${fgStock[name].kg.toFixed(3)}</p>
 </div>
-
 `;
-
 });
-
 }
 
-// DASHBOARD
+function loadDispatch(){
+
+let table=document.getElementById('dispatchTable');
+table.innerHTML='';
+
+dispatchEntries.forEach(d=>{
+
+table.innerHTML += `
+<tr>
+<td>${d.date}</td>
+<td>${d.product}</td>
+<td>${d.qty}</td>
+<td>${d.kg.toFixed(3)}</td>
+</tr>
+`;
+});
+}
+
+function loadScrap(){
+
+let table=document.getElementById('scrapTable');
+table.innerHTML='';
+
+productionEntries.forEach(p=>{
+
+table.innerHTML += `
+<tr>
+<td>${p.date}</td>
+<td>${p.product}</td>
+<td>${p.rmUsed.toFixed(3)}</td>
+<td>${p.fgKG.toFixed(3)}</td>
+<td>${p.scrap.toFixed(3)}</td>
+</tr>
+`;
+});
+}
 
 function loadDashboard(){
 
-document.getElementById("totalMaterials")
-.innerText = materials.length;
+let totalKg=0;
+let totalFG=0;
 
-let totalKg = 0;
-let totalPcs = 0;
-let lowStock = 0;
-
-materials.forEach(m=>{
-
-let s = stock[m.name];
-
-totalKg += s.kg;
-totalPcs += s.pieces;
-
-if(s.pieces < 50){
-
-lowStock++;
-
-}
-
+Object.keys(stock).forEach(k=>{
+totalKg += stock[k].kg;
 });
 
-document.getElementById("totalKg")
-.innerText = totalKg.toFixed(3);
-
-document.getElementById("totalPcs")
-.innerText = totalPcs;
-
-document.getElementById("lowStockCount")
-.innerText = lowStock;
-
-}
-
-// DELETE ENTRY
-
-function deleteEntry(index){
-
-let confirmDelete =
-confirm("Delete Entry ?");
-
-if(confirmDelete){
-
-entries.splice(index,1);
-
-recalculateStock();
-
-loadEntries();
-loadSummary();
-loadDashboard();
-
-}
-
-}
-
-// RECALCULATE STOCK
-
-function recalculateStock(){
-
-initializeStock();
-
-entries.forEach(e=>{
-
-let material =
-materials.find(
-m => m.name === e.material
-);
-
-if(!material) return;
-
-if(e.type=="IN"){
-
-stock[material.name].kg +=
-parseFloat(e.inKg);
-
-let pieces = 0;
-
-if(
-material.sheetWeight > 0 &&
-material.piecesPerSheet > 0
-){
-
-pieces = Math.floor(
-
-(
-parseFloat(e.inKg)
-/
-material.sheetWeight
-)
-
-*
-material.piecesPerSheet
-
-);
-
-}
-
-stock[material.name].pieces += pieces;
-
-}
-
-else{
-
-stock[material.name].kg -=
-parseFloat(e.outKg);
-
-stock[material.name].pieces -=
-parseFloat(e.outPieces);
-
-}
-
-if(stock[material.name].kg < 0){
-
-stock[material.name].kg = 0;
-
-}
-
-stock[material.name].kg =
-parseFloat(
-stock[material.name].kg.toFixed(3)
-);
-
+Object.keys(fgStock).forEach(k=>{
+totalFG += fgStock[k].pcs;
 });
 
-saveAll();
 
+document.getElementById('totalRM').innerText=materials.length;
+document.getElementById('totalProducts').innerText=products.length;
+document.getElementById('totalKg').innerText=totalKg.toFixed(3);
+document.getElementById('totalFG').innerText=totalFG;
 }
 
-// SAVE
-
-function saveAll(){
-
-localStorage.setItem(
-"materials",
-JSON.stringify(materials)
-);
-
-localStorage.setItem(
-"entries",
-JSON.stringify(entries)
-);
-
+function deleteRM(index){
+materials.splice(index,1);
+saveData();
+loadAll();
 }
 
-// CSV DOWNLOAD
-
-function downloadCSV(){
-
-let csv = [];
-
-csv.push([
-
-"Date",
-"Material",
-"Type",
-"IN KG",
-"OUT PCS",
-"OUT KG",
-"Balance PCS",
-"Balance KG"
-
-]);
-
-entries.forEach(e=>{
-
-csv.push([
-
-e.date,
-e.material,
-e.type,
-e.inKg,
-e.outPieces,
-e.outKg,
-e.balancePieces,
-e.balanceKg
-
-]);
-
-});
-
-let csvContent =
-"data:text/csv;charset=utf-8,";
-
-csv.forEach(row=>{
-
-csvContent += row.join(",") + "\n";
-
-});
-
-let encodedUri = encodeURI(csvContent);
-
-let link =
-document.createElement("a");
-
-link.setAttribute("href",encodedUri);
-
-link.setAttribute(
-"download",
-"material_stock.csv"
-);
-
-document.body.appendChild(link);
-
-link.click();
-
-document.body.removeChild(link);
-
+function deleteProduct(index){
+products.splice(index,1);
+saveData();
+loadAll();
 }
 
-// BACKUP JSON
+loadAll();
 
-function backupData(){
-
-let data = {
-
-materials,
-entries
-
-};
-
-let json =
-JSON.stringify(data,null,2);
-
-let blob =
-new Blob([json],{
-type:"application/json"
-});
-
-let url =
-URL.createObjectURL(blob);
-
-let a =
-document.createElement("a");
-
-a.href = url;
-
-a.download =
-"inventory_backup.json";
-
-a.click();
-
-URL.revokeObjectURL(url);
-
-}
-
-</script>
-
-</body>
+</script></body>
 </html>
